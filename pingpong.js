@@ -2,8 +2,9 @@
 let xBolinha = 300;
 let yBolinha = 200;
 let tamBolinha = 25;
+let raioBolinha = tamBolinha/2;
 
-//config velocidade bolinha
+//aqui estou configurando a velocidade da bolinha
 let xvelocidadeBolinha = 6;
 let yvelocidadeBolinha = 6;
 
@@ -14,45 +15,34 @@ let larguraRaquete = 10;
 let alturaRaquete = 90;
 
 function setup(){
-    //aqui vou criar minha "mesa"
     createCanvas(600,400);
 }
-
+//area de desenho
 function draw(){
-    //função responsável pelo "desenho e animação da mesa"
-    //aqui vou por a cor da "mesa"
-    //A cor da mesa é em rgb
     background(128,128,0); 
-    //chamando a função cria bolinha para criar a bolinha
+    //chamada das funçoes
     criaBolinha(xBolinha, yBolinha, tamBolinha);
-    movimentaBolinha ();
-    bolinhaborda ();
-     //chamando a função mov bolinha
-    moveBolinha();
-    //chamando a borda
-    Borda();
-    criaRaquete(xRaquete, yRaquete, tamBolinha);
-    movimentaRaquete(xRaquete, yRaquete, alturaRaquete);
-    ovimentaRaquete ();
-    colideRaquete ();
+    movimentaBolinha();
+    bolinhaBorda();
+    criaRaquete(xRaquete, yRaquete, larguraRaquete, alturaRaquete);
+    movimentaRaquete();
+    colideRaquete();
 }
 
-//função bolinha
-function criaBolinha(xBolinha, yBolinha,tamBolinha){
-    //aqui criamos a bolinha e a pintamos de vermelho (adição do professor)
-    fill("red");
+function criaBolinha(xBolinha, yBolinha, tamBolinha) {
+  //aqui criamos a bolinha e a pintamos de vermelho (adiçao do professor)
+    fill ("red");
     circle (xBolinha,yBolinha,tamBolinha);
 }
 
-//função move bolinha
-function moveBolinha(){
+//função responsavel pela movimentaçao da bolinha
+function movimentaBolinha() {
+    
     xBolinha = xvelocidadeBolinha + xBolinha;
     yBolinha = yvelocidadeBolinha + yBolinha;
-
 }
-
-function Borda(){
-    ///função responsável pela bolinha não sair fora do "campo/mesa"
+///funçao responsavel pela bolinha nao sair fora do "campo/mesa"
+function bolinhaBorda(){
     if (xBolinha > width || xBolinha < 0){
         xvelocidadeBolinha *= -1;
     }
@@ -60,26 +50,29 @@ function Borda(){
         yvelocidadeBolinha *= -1;
     }
 }
-//função responável por criar o retangulo que representa a raquete
+//funcao responsavel por criar o retangulo que representa a maquete
 function criaRaquete(xRaquete, yRaquete, larguraRaquete, alturaRaquete) {
     fill("blue");
-    Rect(xRaquete, yRaquete, larguraRaquete, alturaRaquete);
+    rect(xRaquete, yRaquete, larguraRaquete, alturaRaquete);
 }
-//função responsável por movimentar a raquete
+//funcao responsavel por movimentar a raquete
 function movimentaRaquete() {
-    if(keyIsDown(UP_ARROW)) {
-        yRaquete -=10;
+
+    if(keyIsDown(UP_ARROW)){
+        yRaquete -= 10;
     }
     if(keyIsDown(DOWN_ARROW)){
-        yRaquete +=10;
+        yRaquete += 10;
     }
 
 }
-//função responsável por quando a bolinha bater na raquete, retornar em direção contrária.
-function colideRaquete () {
+//funcao responsavel por quanto a bolinha bater na raquete, retornar em direçao contraria
+function colideRaquete(){
 
-    if(xBolinha - raioBolinha < xRaquete+ + larguraRaquete && yBolinha + raioBolinha > yRaquete) {
+    if(xBolinha - raioBolinha < xRaquete + larguraRaquete && yBolinha - raioBolinha < yRaquete + alturaRaquete && yBolinha + raioBolinha > yRaquete){
 
         xvelocidadeBolinha *= -1;
+
     }
+
 }
